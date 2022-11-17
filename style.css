@@ -15,6 +15,9 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
 }
+.goals {
+    display: none;
+}
 .space {
     width: 420px;
     height: 420px;
@@ -57,8 +60,8 @@ background-size: cover; */
     
 }
 .hole {
-    width: 128px;
-    height: 128px;
+    width: 30%;
+    height: 30%;
     border-top-left-radius: 50%;
     border-top-right-radius: 50%;
     box-sizing: border-box;
@@ -66,9 +69,10 @@ background-size: cover; */
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 5px -2px 1px;
+    box-shadow: 10px 0px 1px;
+   
 }
-.goal {
+.hole img {
     height: 80%;
     width: auto;
 }
