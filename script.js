@@ -1,13 +1,17 @@
 // -------------------------------------------ПЕРЕМЕННЫЕ
 let board = document.querySelector(".board");
+let cursor = document.querySelector(".cursor");
 let holesList = [];
-let gridBoard = 4;
+let gridBoard = 3;
 let countHole = gridBoard * gridBoard;
 let sizeHole = board.offsetHeight / gridBoard * 0.85;
 
 //---------------- Выполнение программы
+
+
 fillBoard(countHole);
 createGoal();
+startTimer(10);
 
 
 
@@ -49,8 +53,34 @@ function createGoal() {
     setInterval(function() {
         goal1.remove;
         addGoal();
-    }, 1000);
+    }, 2000);
 }
+// -- Таймер отсчета времени-----------------------------------------------------------
+function startTimer (n) {
+    let timer = document.querySelector(".timer");
+    let count = n;
+    setInterval(function() {
+        timer.innerHTML = count + "";
+        count--;
+        if (count == -2) {
+            alert("Таймер окончен, хотите перезапустить страницу?");
+            count = n;
+            location.reload;
+        }
+    }, 1000);
+ }
+
+//-- Курсор
+window.addEventListener('mousemove', e => {
+    cursor.style.top = e.pageY + 'px'
+    cursor.style.left = e.pageX + 'px'
+})
+window.addEventListener('mousedown', () => {
+    cursor.classList.add('active')
+})
+window.addEventListener('mouseup', () => {
+    cursor.classList.remove('active')
+})
 
 // ---------------функция рандом от и до
 function random(min, max) {
@@ -58,3 +88,4 @@ function random(min, max) {
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min; 
   }
+
