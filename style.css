@@ -12,6 +12,7 @@ body {
     background-image: url(img/bg_1.jpeg);
     background-repeat: no-repeat;
     background-size: 100% auto;
+    /* background-position: bottom; */
     cursor:none;
 }
 .goals {
@@ -60,11 +61,33 @@ background-size: cover; */
 }
 .info div {
     width: 25%;
-    border: 1px solid;
+    /* border: 1px solid; */
     text-align: center;
 }
 .timer {
     font-size: 20px;
+}
+.lifes span {
+    display: block;
+    float: left;
+    width: 20px;
+    height: 20px;
+    background: url(img/life.png);
+    background-size: cover;
+}
+.score{
+    width: 170px;
+    height: 30px;
+    padding: 5px 15px;
+    font-size: 26px;
+    color: #383939;
+    border: 2px solid;
+    border-color: #383939;
+    border-radius: 10px 20px;
+    background-color: #eed249;
+}
+.score p {
+    margin: 0;
 }
 
 .board {
@@ -103,12 +126,12 @@ background-size: cover; */
     position: absolute;
     top: 150px;
     left: 150px;
-    background-image: url('img/cursor1r.png');
+    background-image: url('img/cursor3.png');
     background-size: 100% 100%;
-    transform: translate(-60%, -60%);
+    transform: translate(0%, -60%);
     transition: transform .1s;
     pointer-events: none;
 }
 .cursor.active{
-    transform: translate(-60%, -60%) rotate(-60deg);
+    transform: translate(0%, -60%) rotate(-60deg);
 }

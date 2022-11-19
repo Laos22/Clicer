@@ -25,7 +25,10 @@ startTimer(10);
 
 
 
-// --------------------------------------------ФУНКЦИИ
+
+
+// -------------------------------------------- ФУНКЦИИ -------------------------------------------
+// ------------------------------------------------------------------------------------------------
 
 //-- Функция заполняет поле количеством отверстий
 function fillBoard (countHole) {
@@ -55,7 +58,7 @@ function createGoal() {
         addGoal();
     }, 2000);
 }
-// -- Таймер отсчета времени-----------------------------------------------------------
+// -------------------------------------------------------------------- Таймер отсчета времени
 function startTimer (n) {
     let timer = document.querySelector(".timer");
     let count = n;
@@ -63,14 +66,41 @@ function startTimer (n) {
         timer.innerHTML = count + "";
         count--;
         if (count == -2) {
-            alert("Таймер окончен, хотите перезапустить страницу?");
+            // alert("Таймер окончен, хотите перезапустить страницу?");
             count = n;
             location.reload;
         }
     }, 1000);
  }
+ // ------------------------------------------------------------------ Жизни
+ // переменная для жизней (количество жизней)
+countLifes = 5;
 
-//-- Курсор
+// создаем функцию жизней
+function createLifes() {
+    let lifesBlock = document.querySelector(".info .lifes");
+// очищать блок
+    lifesBlock.innerHTML = "";
+// создаем счетчик
+    let count = 0;
+// создаем цикл
+   while(count < countLifes){
+        let span = document.createElement("span");
+        lifesBlock.appendChild(span);
+        count = count + 1;
+   }
+
+ }
+// создаем функцию уменьшения жизней, кликнули на собаку
+function lifesDown() {
+    countLifes = countLifes - 1;
+    if (countLifes <= 0) {
+        endGame();
+    }
+    createLifes();
+}
+
+//------------------------------------------------------------------------- Курсор
 window.addEventListener('mousemove', e => {
     cursor.style.top = e.pageY + 'px'
     cursor.style.left = e.pageX + 'px'
@@ -82,7 +112,7 @@ window.addEventListener('mouseup', () => {
     cursor.classList.remove('active')
 })
 
-// ---------------функция рандом от и до
+// -----------------------------------------------------------------------функция рандом от и до
 function random(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
