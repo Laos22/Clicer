@@ -2,18 +2,21 @@
 let board = document.querySelector(".board");
 let cursor = document.querySelector(".cursor");
 let holesList = [];
-let gridBoard = 3;
+let gridBoard = 5;
 let countHole = gridBoard * gridBoard;
 let sizeHole = board.offsetHeight / gridBoard * 0.85;
+let pos;
 
 //---------------- Выполнение программы
 
 
 fillBoard(countHole);
 createGoal();
-startTimer(10);
+// runLeftJerry();
+// moveLeftJerry();
 
 
+// startTimer(10);
 
 
 
@@ -46,18 +49,50 @@ function fillBoard (countHole) {
 function addGoal() {
     let goal1 = document.querySelector("#goal1");
     let x = random(0, countHole - 1);
-    console.log(x);
     holesList[x].appendChild(goal1);
 }
 
 //-- Появление цели скрывание
 function createGoal() {
-    addGoal();
     setInterval(function() {
         goal1.remove;
         addGoal();
-    }, 2000);
+        pos = goal1.offsetWidth;
+    }, 1000);
+    cnt = 1;
+    let interval = setInterval (function() {
+        goal1.src = "img/jeri_3_" + cnt++ +".png";
+        if (cnt >= 11) cnt = 1;
+    }, 60);
+
+    goal1.style.marginLeft = pos + "px";
+    let interval2 = setInterval (function() {
+        goal1.style.marginLeft = pos + "px";
+        pos -= 10;
+    }, 50)
 }
+// -- Анимация бега Джери
+function runLeftJerry () {
+    let jerry = document.querySelector("#goal1");
+    cnt = 1;
+    let interval = setInterval (function() {
+        jerry.src = "img/jeri_3_" + cnt++ +".png";
+        if (cnt >= 11) cnt = 1;
+    }, 40)
+}
+// -- Перемещение Джери
+function moveLeftJerry () {
+    let jerry = document.querySelector("#goal1");
+    let pos = jerry.offsetWidth;
+    jerry.style.marginLeft = pos + "px";
+    let interval2 = setInterval (function() {
+        jerry.style.marginLeft = pos + "px";
+        pos -= 2;
+    }, 100)
+}
+
+
+
 // -------------------------------------------------------------------- Таймер отсчета времени
 function startTimer (n) {
     let timer = document.querySelector(".timer");
