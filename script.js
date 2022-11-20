@@ -11,7 +11,7 @@ let pos;
 
 
 fillBoard(countHole);
-addGoal();
+addJerry();
 
 
 
@@ -41,35 +41,36 @@ function fillBoard (countHole) {
     }
 }
 //-- Добавляем цель в отверстие
-function addGoal() {
-    let goal1 = document.querySelector("#goal1");
+function addJerry() {
+    let jerry = document.querySelector("#jerry");
     let x = random(0, countHole - 1);
-    holesList[x].appendChild(goal1);
+    holesList[x].appendChild(jerry);
     if (random(1,2) == 1) animJerryLeft();      // Рандомно запускаем анимацию в разные стороны
     else animJerryRight();
+
 }
 
 //========================================================================== Анимация движение влево
 //----- Анимация бегающих ног влево
 function runJerryLeft() {
     cnt = 1;
-    goal1.style.transform = "scale(1, 1)";
+    jerry.style.transform = "scale(1, 1)";
     let interval = setInterval (function() {
-        goal1.src = "img/jeri_3_" + cnt++ +".png";
+        jerry.src = "img/jeri_3_" + cnt++ +".png";
         
         if (cnt >= 11) cnt = 1;
     }, 40);
 }
 //----- Движение картинки с анимацией влево
 function moveJerryLeft() {
-    pos = goal1.offsetWidth;
-    goal1.style.marginLeft = pos + "px";
+    pos = jerry.offsetWidth;
+    jerry.style.marginLeft = pos + "px";
     let interval2 = setInterval (function() {
-        goal1.style.marginLeft = pos + "px";
+        jerry.style.marginLeft = pos + "px";
         pos -= 9;
-        if (pos <= goal1.offsetWidth * -1 ) {
+        if (pos <= jerry.offsetWidth * -1 ) {
             clearInterval(interval2);
-            addGoal();
+            addJerry();
         }
     }, 50)
 }
@@ -81,22 +82,22 @@ function animJerryLeft() {
 //----- Анимация бегающих ног вправо
 function runJerryRight() {
     cnt = 1;
-    goal1.style.transform = "scale(-1, 1)";
+    jerry.style.transform = "scale(-1, 1)";
     let interval = setInterval (function() {
-        goal1.src = "img/jeri_3_" + cnt++ +".png";
+        jerry.src = "img/jeri_3_" + cnt++ +".png";
         if (cnt >= 11) cnt = 1;
     }, 40);
 }
 //----- Движение картинки с анимацией вправо
 function moveJerryRight() {
-    pos = goal1.offsetWidth * - 1;
-    goal1.style.marginLeft = pos + "px";
+    pos = jerry.offsetWidth * - 1;
+    jerry.style.marginLeft = pos + "px";
     let interval2 = setInterval (function() {
-        goal1.style.marginLeft = pos + "px";
+        jerry.style.marginLeft = pos + "px";
         pos += 9;
-        if (pos >= goal1.offsetWidth) {
+        if (pos >= jerry.offsetWidth) {
             clearInterval(interval2);
-            addGoal();
+            addJerry();
         }
     }, 50)
 }
