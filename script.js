@@ -2,7 +2,7 @@
 let board = document.querySelector(".board");
 let cursor = document.querySelector(".cursor");
 let holesList = [];
-let gridBoard = 5;
+let gridBoard = 3;
 let countHole = gridBoard * gridBoard;
 let sizeHole = board.offsetHeight / gridBoard * 0.85;
 let pos;
@@ -11,12 +11,7 @@ let pos;
 
 
 fillBoard(countHole);
-createGoal();
-// runLeftJerry();
-// moveLeftJerry();
-
-
-// startTimer(10);
+addGoal();
 
 
 
@@ -50,50 +45,68 @@ function addGoal() {
     let goal1 = document.querySelector("#goal1");
     let x = random(0, countHole - 1);
     holesList[x].appendChild(goal1);
+    if (random(1,2) == 1) animJerryLeft();      // Рандомно запускаем анимацию в разные стороны
+    else animJerryRight();
 }
 
-//-- Появление цели скрывание
-function createGoal() {
-    setInterval(function() {
-        goal1.remove;
-        addGoal();
-        pos = goal1.offsetWidth;
-    }, 1000);
+//========================================================================== Анимация движение влево
+//----- Анимация бегающих ног влево
+function runJerryLeft() {
     cnt = 1;
+    goal1.style.transform = "scale(1, 1)";
     let interval = setInterval (function() {
         goal1.src = "img/jeri_3_" + cnt++ +".png";
+        
         if (cnt >= 11) cnt = 1;
-    }, 60);
-
+    }, 40);
+}
+//----- Движение картинки с анимацией влево
+function moveJerryLeft() {
+    pos = goal1.offsetWidth;
     goal1.style.marginLeft = pos + "px";
     let interval2 = setInterval (function() {
         goal1.style.marginLeft = pos + "px";
-        pos -= 10;
+        pos -= 9;
+        if (pos <= goal1.offsetWidth * -1 ) {
+            clearInterval(interval2);
+            addGoal();
+        }
     }, 50)
 }
-// -- Анимация бега Джери
-function runLeftJerry () {
-    let jerry = document.querySelector("#goal1");
+//----- Функция которая запускат анимацию и движение влево
+function animJerryLeft() {
+    runJerryLeft();
+    moveJerryLeft();
+}
+//----- Анимация бегающих ног вправо
+function runJerryRight() {
     cnt = 1;
+    goal1.style.transform = "scale(-1, 1)";
     let interval = setInterval (function() {
-        jerry.src = "img/jeri_3_" + cnt++ +".png";
+        goal1.src = "img/jeri_3_" + cnt++ +".png";
         if (cnt >= 11) cnt = 1;
-    }, 40)
+    }, 40);
 }
-// -- Перемещение Джери
-function moveLeftJerry () {
-    let jerry = document.querySelector("#goal1");
-    let pos = jerry.offsetWidth;
-    jerry.style.marginLeft = pos + "px";
+//----- Движение картинки с анимацией вправо
+function moveJerryRight() {
+    pos = goal1.offsetWidth * - 1;
+    goal1.style.marginLeft = pos + "px";
     let interval2 = setInterval (function() {
-        jerry.style.marginLeft = pos + "px";
-        pos -= 2;
-    }, 100)
+        goal1.style.marginLeft = pos + "px";
+        pos += 9;
+        if (pos >= goal1.offsetWidth) {
+            clearInterval(interval2);
+            addGoal();
+        }
+    }, 50)
+}
+//----- Функция которая запускат анимацию и движение вправо
+function animJerryRight() {
+    runJerryRight();
+    moveJerryRight();
 }
 
-
-
-// -------------------------------------------------------------------- Таймер отсчета времени
+//============================================================================ Таймер отсчета времени
 function startTimer (n) {
     let timer = document.querySelector(".timer");
     let count = n;
