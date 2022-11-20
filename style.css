@@ -118,12 +118,13 @@ background-size: cover; */
    
 }
 #jerry {
-    display: block;
     height: 80%;
     width: auto;
-    
-    
-
+}
+#spike {
+    height: auto;
+    width: 100%;
+    margin: 0 auto;
 }
 .cursor{
     height: 150px;

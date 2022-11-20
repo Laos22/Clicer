@@ -5,13 +5,15 @@ let holesList = [];
 let gridBoard = 3;
 let countHole = gridBoard * gridBoard;
 let sizeHole = board.offsetHeight / gridBoard * 0.85;
-let pos;
+let frequencySpike = 2;
 
 //---------------- Выполнение программы
 
 
 fillBoard(countHole);
-addJerry();
+startTimer(10);
+addEnemy();
+
 
 
 
@@ -40,7 +42,54 @@ function fillBoard (countHole) {
         holesList.push(hole);
     }
 }
-//-- Добавляем цель в отверстие
+//========================================================================== Функция выбора цели (Джери или Спайк)
+function addEnemy() {
+    let randomX = random(1,frequencySpike);
+    console.log(randomX);
+    if (randomX == frequencySpike) addSpike();
+    else addJerry();
+}
+
+//========================================================================== Функция добавления Спайки
+function addSpike() {
+    let spike = document.querySelector("#spike");
+    let x = random(0, countHole - 1);
+    holesList[x].appendChild(spike);
+    spike.style.display = "block";
+    animSpike();
+}
+//========================================================================== Анимация движение Спайки
+//----- Анимация спайка лай
+function barkSpike() {
+    cnt = 1;
+    let interval4 = setInterval (function() {
+        spike.src = "img/spike_" + cnt++ +".png";
+        if (cnt > 2) cnt = 1;
+        if (posSpike >= spike.offsetWidth + 30) {
+            clearInterval(interval4);
+        }
+    }, 300);
+}
+function moveSpikeUP() {
+    let posSpike = spike.offsetWidth * - 1;
+    spike.style.marginLeft = posSpike + "px";
+    let interval3 = setInterval (function() {
+        spike.style.marginLeft = posSpike + "px";
+        posSpike += 5;
+        if (posSpike >= spike.offsetWidth + 30) {
+            clearInterval(interval3);
+            addEnemy();
+        }
+    }, 50)
+}
+//----- Функция которая запускат анимацию и движение Спайка
+function animSpike() {
+    barkSpike();
+    moveSpikeUP();
+}
+
+
+//========================================================================== Функция добавления Джери
 function addJerry() {
     let jerry = document.querySelector("#jerry");
     let x = random(0, countHole - 1);
@@ -50,27 +99,26 @@ function addJerry() {
 
 }
 
-//========================================================================== Анимация движение влево
+//========================================================================== Анимация движение Джери влево
 //----- Анимация бегающих ног влево
 function runJerryLeft() {
     cnt = 1;
     jerry.style.transform = "scale(1, 1)";
     let interval = setInterval (function() {
         jerry.src = "img/jeri_3_" + cnt++ +".png";
-        
         if (cnt >= 11) cnt = 1;
     }, 40);
 }
 //----- Движение картинки с анимацией влево
 function moveJerryLeft() {
-    pos = jerry.offsetWidth;
+    let pos = jerry.offsetWidth;
     jerry.style.marginLeft = pos + "px";
     let interval2 = setInterval (function() {
         jerry.style.marginLeft = pos + "px";
         pos -= 9;
-        if (pos <= jerry.offsetWidth * -1 ) {
+        if (pos <= (jerry.offsetWidth * -1) - 30 ) {
             clearInterval(interval2);
-            addJerry();
+            addEnemy();
         }
     }, 50)
 }
@@ -90,14 +138,14 @@ function runJerryRight() {
 }
 //----- Движение картинки с анимацией вправо
 function moveJerryRight() {
-    pos = jerry.offsetWidth * - 1;
+    let pos = jerry.offsetWidth * - 1;
     jerry.style.marginLeft = pos + "px";
     let interval2 = setInterval (function() {
         jerry.style.marginLeft = pos + "px";
         pos += 9;
-        if (pos >= jerry.offsetWidth) {
+        if (pos >= jerry.offsetWidth + 30) {
             clearInterval(interval2);
-            addJerry();
+            addEnemy();
         }
     }, 50)
 }
@@ -114,14 +162,14 @@ function startTimer (n) {
     setInterval(function() {
         timer.innerHTML = count + "";
         count--;
-        if (count == -2) {
+        if (count == -1) {
             // alert("Таймер окончен, хотите перезапустить страницу?");
             count = n;
-            location.reload;
+            // location.reload;
         }
     }, 1000);
  }
- // ------------------------------------------------------------------ Жизни
+ // =========================================================================== Жизни
  // переменная для жизней (количество жизней)
 countLifes = 5;
 
@@ -149,7 +197,7 @@ function lifesDown() {
     createLifes();
 }
 
-//------------------------------------------------------------------------- Курсор
+//============================================================================== Курсор
 window.addEventListener('mousemove', e => {
     cursor.style.top = e.pageY + 'px'
     cursor.style.left = e.pageX + 'px'
@@ -161,7 +209,7 @@ window.addEventListener('mouseup', () => {
     cursor.classList.remove('active')
 })
 
-// -----------------------------------------------------------------------функция рандом от и до
+// ============================================================================ Функция рандом от и до включительно
 function random(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
